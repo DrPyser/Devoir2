@@ -52,7 +52,18 @@ public abstract class Carte extends JComponent {
 
     public abstract Object duplique();
     
-    public static void melageCartes(Carte[] cartes){
-	
+    public static void melangeCartes(Carte[] cartes){
+	int index;
+	Carte temp;
+	for(int i=0;i<cartes.length;i++){
+	    index = randomInt(0,cartes.length);
+	    temp = cartes[index];
+	    cartes[index] = cartes[i];
+	    cartes[i] = temp;
+	}
+    }
+
+    protected static int randomInt(int from,int to){
+	return (Math.floor(Math.random()*to)+from);
     }
 }
