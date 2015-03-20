@@ -1,6 +1,6 @@
-import java.util.Arrays.*;
+import java.util.Arrays;
 
-public class GenerateurDeCartes{
+public abstract class GenerateurDeCartes{
     private String nom;
     
     public String getNom(){
@@ -14,20 +14,20 @@ public class GenerateurDeCartes{
     public abstract int nombreDeCartesDifferentes();
     
     //genere un array de cartes en utilisant la methode genereUneCarte
-    //note: la méthode ne peut actuellement pas gerer le cas ou n>nombre cartes possible, et entrera dasn une boucle infini
+    //note: la méthode ne peut actuellement pas gerer le cas ou n>nombre cartes possible, et entrera dans une boucle infini
     public Carte[] genereCartes(int n){
 	Carte[] cartes = new Carte[n];
 	Carte carte;
 	for(int i = 0;i<cartes.length;i++){
 	    carte = genereUneCarte();
 	    //si la carte est déjà présente dans la liste
-	    if(Arrays.asList(cartes).indexOf(carte)){
+	    if(Arrays.asList(cartes).indexOf(carte) != -1){
 		i = i-1;//on recommence l'itération actuelle
-	    } else{
+	    } else {
 		cartes[i] = carte;
 	    }
 	}
-	return Cartes;
+	return cartes;
     }
 
     public Carte[] generePairesDeCartesMelangees(int n){
@@ -35,8 +35,9 @@ public class GenerateurDeCartes{
 	Carte[] paires = new Carte[2*n];
 	for(int i = 0;i<cartes.length;i++){
 	    paires[i] = cartes[i];
-	    paires[i+n] = cartes[i].duplique();//les duplicats sont d'abord placé à l'index i+n
+	    paires[i+n] = (Carte) cartes[i].duplique();//les duplicats sont d'abord placé à l'index i+n
 	}
+
 	Carte.melangeCartes(paires);//melange les cartes
 	return paires;//retourne la liste des paires
     }

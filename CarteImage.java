@@ -1,17 +1,25 @@
 public class CarteImage extends Carte{
-    private String pathtoimage;
-    public CarteImage(String pathtoimage,boolean recto){
+    private String fichier;
+
+    public CarteImage(String fichier,boolean recto){
 	super(recto);
-	this.pathtoimage = pathtoimage;
+	this.fichier = fichier;
     }
+
     public CarteImage(CarteImage carte){
-	this(carte.pathtoimage,carte.recto);
+	this(carte.fichier,carte.recto);
     }
+
     public CarteImage duplique(){
 	return (new CarteImage(this));
     }
+
     public String toString(){
-	return ("path to image: "+this.pathtoimage
+	return ("Nom du fichier: "+this.fichier
 		+"\n coté: "+this.recto);
+    }
+
+    public boolean rectoidentique(Carte carte){
+	return (carte instanceof CarteImage && carte.fichier.equal(this.fichier));
     }
 }

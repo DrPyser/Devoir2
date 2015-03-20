@@ -13,8 +13,11 @@ public class CarteCouleur extends Carte{
     }
     public String toString(){
 	return ("Couleur: "+this.couleur.toString
-		+",\n coté: "+(this.rcto?"recto":"verso"));
+		+",\n coté: "+(this.recto?"recto":"verso"));
     }
 
+    public boolean rectoIdentique(Carte carte){
+	return (carte instanceof CarteCouleur && carte.couleur.equals(this.couleur));
+    }
     
 }

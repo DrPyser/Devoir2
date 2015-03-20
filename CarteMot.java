@@ -14,6 +14,11 @@ public class CarteMot extends Carte{
     }
 
     public String toString(){
-	return ("Mot: "+this.mot+"\n Coté: "+(this.recto?"recto":"verso");
+	return ("Mot: "+this.mot+"\n Coté: "+(this.recto?"recto":"verso"));
     }
+	    
+    public boolean rectoIdentique(Carte carte){
+	return (carte instanceof CarteMot && carte.mot==this.mot);
+    }
+	    
 }

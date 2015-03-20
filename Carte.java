@@ -1,5 +1,5 @@
 import javax.swing.*;
-
+import java.awt.*;
 public abstract class Carte extends JComponent {
     private boolean recto;
     private Graphics2D imageRecto;
@@ -9,7 +9,7 @@ public abstract class Carte extends JComponent {
     }
 
     protected Carte(Carte carte){
-	return this(carte.recto);
+	this(carte.recto);
     }
 
     public boolean estMontree(){
@@ -46,9 +46,8 @@ public abstract class Carte extends JComponent {
 	}
     }
 
-    public abstract boolean rectoIdentique(Carte carte){
-	return (this.imageRecto.equal(carte.imageRecto));
-    }
+    public abstract boolean rectoIdentique(Carte carte);
+    
 
     public abstract Object duplique();
     
