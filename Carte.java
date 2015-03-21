@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 public abstract class Carte extends JComponent {
-    private boolean recto;
-    private Graphics2D imageRecto;
+    private boolean recto;//recto = état "découvert". !recto = état "caché"
 
     protected Carte(boolean recto){
 	this.recto = recto;
@@ -33,7 +32,8 @@ public abstract class Carte extends JComponent {
     }
 
     public void paintVerso(Graphics2D g){
-	
+	g.setColor(Color.BLACK);//fixe la couleur du contexte graphique de la carte à 'noir'
+	g.fillRect(0,0,this.getWidth()-1,this.getHeight()-1);//peinture le contexte graphique de la carte avec la couleur 'noir'
     }
 
     public abstract void paintRecto();
@@ -55,14 +55,10 @@ public abstract class Carte extends JComponent {
 	int index;
 	Carte temp;
 	for(int i=0;i<cartes.length;i++){
-	    index = randomInt(0,cartes.length);
+	    index = (Math.floor(Math.random()*cartes.length));
 	    temp = cartes[index];
 	    cartes[index] = cartes[i];
 	    cartes[i] = temp;
 	}
-    }
-
-    protected static int randomInt(int from,int to){
-	return (Math.floor(Math.random()*to)+from);
     }
 }

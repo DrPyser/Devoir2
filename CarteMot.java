@@ -1,5 +1,6 @@
 public class CarteMot extends Carte{
-    String mot;
+    private String mot;//mot charactérisant cette carte
+
     public CarteMot(String mot,boolean recto){
 	super(recto);
 	this.mot = mot;
@@ -19,6 +20,10 @@ public class CarteMot extends Carte{
 	    
     public boolean rectoIdentique(Carte carte){
 	return (carte instanceof CarteMot && carte.mot==this.mot);
+    }
+
+    public void paintRecto(Graphics2D g){
+	g.drawString(this.mot,Math.floor(this.getWidth()/2),Math.floor(this.getHeight()/2));//affiche le mot au milieu de la carte
     }
 	    
 }
