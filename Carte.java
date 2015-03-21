@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 public abstract class Carte extends JComponent {
+
     private boolean recto;//recto = état "découvert". !recto = état "caché"
 
     protected Carte(boolean recto){
@@ -21,10 +22,12 @@ public abstract class Carte extends JComponent {
 
     public void montre(){
 	this.recto = true;
+	this.repaint();//repaint le recto
     }
     
     public void cache(){
 	this.recto = false;
+	this.repaint();//repaint le verso
     }
     
     public void retourne(){
@@ -35,9 +38,12 @@ public abstract class Carte extends JComponent {
 	g.setColor(Color.BLACK);//fixe la couleur du contexte graphique de la carte à 'noir'
 	g.fillRect(0,0,this.getWidth()-1,this.getHeight()-1);//peinture le contexte graphique de la carte avec la couleur 'noir'
     }
-
+	
+    //méthode qui affichera le mot,l'image ou un rectangle d'une certaine couleur , selon le type de la carte
     public abstract void paintRecto();
-
+    
+    
+    //cette méthode est appelé par repaint()
     public void paintComponent(Graphics2D g){
 	if (this.recto) {
 	    paintRecto(g);
