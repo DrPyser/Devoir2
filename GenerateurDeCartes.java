@@ -14,15 +14,24 @@ public abstract class GenerateurDeCartes{
     public abstract int nombreDeCartesDifferentes();
     
     //genere un array de cartes en utilisant la methode genereUneCarte
-    //note: la méthode ne peut actuellement pas gerer le cas ou n>nombre cartes possible, et entrera dans une boucle infini
     public Carte[] genereCartes(int n){
 	Carte[] cartes = new Carte[n];
 	Carte carte;
+	int duplicats = 0;
+	int treshold = n-this.nombreDeCartesDifferentes();//nombre minimal de duplicats, si n>nombre de cartes différentes
 	for(int i = 0;i<cartes.length;i++){
 	    carte = genereUneCarte();
 	    //si la carte est déjà présente dans la liste
 	    if(Arrays.asList(cartes).indexOf(carte) != -1){
-		i = i-1;//on recommence l'itération actuelle
+		//si n<=nombre de cartes differentes, alors il est possible de produire un ensemble de n cartes différentes
+		//si le nombre de duplicats a déjà atteint le treshold(nombre minimum de duplicats possible), 
+		//alors il est possible de ne générer que des cartes différentes de celles déjà générées
+		if(n<=this.nombreDeCartesDifferentes() || duplicats == treshold){
+		    i = i-1;//on recommence l'itération actuelle
+		    duplicats++;
+		} else{
+		    cartes[i] = carte;
+		}
 	    } else {
 		cartes[i] = carte;
 	    }
