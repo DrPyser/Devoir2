@@ -10,11 +10,11 @@ public class GenerateurDeCartesMot extends GenerateurDeCartes{
     
     //generateur de carte
     public Carte genereUneCarte(){
-	int index = (Math.floor(Math.random()*this.mots.length));
+	int index = (int)(Math.floor(Math.random()*this.mots.length));
 	return (new CarteMot(this.mots[index],false));
     }
     
-    public nombreDeCartesDifferentes(){
+    public int nombreDeCartesDifferentes(){
 	return (this.mots.length);
     }
 }

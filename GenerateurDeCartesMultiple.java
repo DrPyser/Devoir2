@@ -6,7 +6,7 @@ public class GenerateurDeCartesMultiple extends GenerateurDeCartes{
     }
 
     public Carte genereUneCarte(){
-	int index = (Math.floor(Math.random()*generateurs.length));
+	int index =(int) (Math.floor(Math.random()*generateurs.length));
 	return generateurs[index].genereUneCarte();//choisi un générateur au hasard parmis la liste des générateurs disponibles, 
 	//et appelle sa méthode de génération de carte
     }
