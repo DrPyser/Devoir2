@@ -20,7 +20,7 @@ public abstract class GenerateurDeCartes{
 	int duplicats = 0;
 	int treshold = n-this.nombreDeCartesDifferentes();//nombre minimal de duplicats, si n>nombre de cartes différentes
 	for(int i = 0;i<cartes.length;i++){
-	    carte = genereUneCarte();
+	    carte = this.genereUneCarte();
 	    //si la carte est déjà présente dans la liste
 	    if(Arrays.asList(cartes).indexOf(carte) != -1){
 		//si n<=nombre de cartes differentes, alors il est possible de produire un ensemble de n cartes différentes
