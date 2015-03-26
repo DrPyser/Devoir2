@@ -40,6 +40,6 @@ public class CarteImage extends Carte{
 		    this.getWidth(),//largeur de la carte
 		    this.getHeight(),//hauteur de la carte
 		    this);//l'observateur est la carte elle même
-	
+		this.repaint();
     }
 }

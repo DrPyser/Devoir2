@@ -26,6 +26,7 @@ public class CarteMot extends Carte{
 
     public void paintRecto(Graphics2D g){
 	g.drawString(this.mot,(int) Math.floor(this.getWidth()/2),(int) Math.floor(this.getHeight()/2));//affiche le mot au milieu de la carte
+	this.repaint();
     }
 	    
 }

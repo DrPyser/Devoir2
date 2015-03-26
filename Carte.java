@@ -37,14 +37,15 @@ public abstract class Carte extends JComponent {
     public void paintVerso(Graphics2D g){
 	g.setColor(Color.BLACK);//fixe la couleur du contexte graphique de la carte à 'noir'
 	g.fillRect(0,0,this.getWidth()-1,this.getHeight()-1);//peinture le contexte graphique de la carte avec la couleur 'noir'
+	this.repaint();
     }
-	
+       
     //méthode qui affichera le mot,l'image ou un rectangle d'une certaine couleur , selon le type de la carte
     public abstract void paintRecto(Graphics2D g);
     
     
     //cette méthode est appelé par repaint()
-    public void paintComponent(Graphics2D g){
+    public void paintComponents(Graphics2D g){
 	if (this.recto) {
 	    paintRecto(g);
 	} else{
