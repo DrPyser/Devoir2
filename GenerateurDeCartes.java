@@ -28,9 +28,9 @@ public abstract class GenerateurDeCartes{
 		//alors il est possible de ne générer que des cartes différentes de celles déjà générées
 		if(n<=this.nombreDeCartesDifferentes() || duplicats == treshold){
 		    i = i-1;//on recommence l'itération actuelle
-		    duplicats++;
 		} else{
 		    cartes[i] = carte;
+		    duplicats++;	
 		}
 	    } else {
 		cartes[i] = carte;

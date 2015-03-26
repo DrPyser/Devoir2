@@ -1,3 +1,4 @@
+import java.awt.*;
 public class CarteCouleur extends Carte{
     private Color couleur;
     public CarteCouleur(Color couleur,boolean recto){
@@ -12,12 +13,12 @@ public class CarteCouleur extends Carte{
 	return (new CarteCouleur(this));
     }
     public String toString(){
-	return ("Couleur: "+this.couleur.toString
+	return ("Couleur: "+this.couleur.toString()
 		+",\n coté: "+(this.recto?"recto":"verso"));
     }
 
     public boolean rectoIdentique(Carte carte){
-	return (carte instanceof CarteCouleur && carte.couleur.equals(this.couleur));
+	return (carte instanceof CarteCouleur && ((CarteCouleur) carte).couleur.equals(this.couleur));
     }
 
     public void paintRecto(Graphics2D g){

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 public abstract class Carte extends JComponent {
 
-    private boolean recto;//recto = état "découvert". !recto = état "caché"
+    protected boolean recto;//recto = état "découvert". !recto = état "caché"
 
     protected Carte(boolean recto){
 	this.recto = recto;
@@ -40,7 +40,7 @@ public abstract class Carte extends JComponent {
     }
 	
     //méthode qui affichera le mot,l'image ou un rectangle d'une certaine couleur , selon le type de la carte
-    public abstract void paintRecto();
+    public abstract void paintRecto(Graphics2D g);
     
     
     //cette méthode est appelé par repaint()
@@ -61,7 +61,7 @@ public abstract class Carte extends JComponent {
 	int index;
 	Carte temp;
 	for(int i=0;i<cartes.length;i++){
-	    index = (Math.floor(Math.random()*cartes.length));
+	    index = (int) (Math.floor(Math.random()*cartes.length));
 	    temp = cartes[index];
 	    cartes[index] = cartes[i];
 	    cartes[i] = temp;

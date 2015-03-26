@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class CarteImage extends Carte{
     private String path;//chemin vers l'image
     private ImageIcon image;//image
@@ -8,6 +11,9 @@ public class CarteImage extends Carte{
 	this.image = new ImageIcon(path);
     }
 
+    public String getPath(){
+        return this.path;
+    }
     //constructeur de copie
     public CarteImage(CarteImage carte){
 	this(carte.path,carte.recto);
@@ -18,16 +24,17 @@ public class CarteImage extends Carte{
     }
 
     public String toString(){
-	return ("Nom du fichier: "+this.fichier
-		+"\n coté: "+this.recto);
+	    return ("Nom du fichier: " + this.path
+                + "\n coté: " + ((this.recto)?"recto":"verso"));
     }
 
-    public boolean rectoidentique(Carte carte){
-	return (carte instanceof CarteImage && carte.path.equal(this.path));//test l'égalité des chemins vers l'image
+    //si 'carte' de type 'CarteImage', compare le path de l'image
+    public boolean rectoIdentique(Carte carte){
+        return carte instanceof CarteImage && ((CarteImage) carte).getPath().equals(this.path);
     }
 
-    public paintRecto(Graphics2D g){
-	g.drawImage(this.image.getImage(),
+    public void paintRecto(Graphics2D g){
+	        g.drawImage(this.image.getImage(),
 		    0,
 		    0,//coordonnés de référence = coin supérieur gauche
 		    this.getWidth(),//largeur de la carte

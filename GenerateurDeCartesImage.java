@@ -7,7 +7,7 @@ public class GenerateurDeCartesImage extends GenerateurDeCartes{
     }
     
     public Carte genereUneCarte(){
-	int index = Math.floor(Math.random()*this.fichiers.length);
+	int index =(int) Math.floor(Math.random()*this.fichiers.length);
 	return (new CarteImage(this.fichiers[index],false));
     }
 
