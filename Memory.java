@@ -69,7 +69,7 @@ public class Memory {
                 break;
         }
 
-        //paneau de carte qui contient le grid de carte
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(nbRangees,nbColonnes));
         for (int i = 0; i<cartes.length;i++){
@@ -86,6 +86,8 @@ public class Memory {
         window.setSize(850, 500);//size in pixel par defaut
         window.setLocationRelativeTo(null);//set to the center of the desktop
         window.setVisible(true);//rend la fenetre visible
+
+        PanneauDeCartes panea = new PanneauDeCartes(nbRangees,nbColonnes,cartes,delaiInitial,delaiErreur);
 
     }
 

@@ -11,7 +11,7 @@ public class PanneauDeCartes extends JPanel{
 
     private int delaiInitial, delaisMauvaisePaire;//contient le temps d'attende
     GridLayout carteLayout;//contient le grid
-    JButton cartes[]; // contient les cartes
+    Carte cartes[]; // contient les cartes
     boolean premiereTournee = false, deuxiemeTournee = false;//contient les cartes si tourner ou non
     Carte premiereCarte;//premiere carte
     int nombreDePaire = 0;//garde le nombre de paire retourner
@@ -20,14 +20,16 @@ public class PanneauDeCartes extends JPanel{
 
 
     //constructeur prend le nb ranger nb colonnes les cartes le delai affichage et delai erreur
-    public PanneauDeCartes(int nRangees, int nColonnes,JButton[] carte,
+    public PanneauDeCartes(int nRangees, int nColonnes,Carte[] carte,
                            int delaiAffichageDebut, int delaiAffichageErreur){
 
         carteLayout = new GridLayout( nRangees, nColonnes,10,10);
         setLayout(carteLayout);
         delaiInitial = delaiAffichageDebut;
         delaisMauvaisePaire = delaiAffichageErreur;
-        cartes = carte;
+        for (int i = 0; i< carte.length;i++) {
+            cartes[i] = carte[i];
+        }
     }
 
     //instancie le clicklistener

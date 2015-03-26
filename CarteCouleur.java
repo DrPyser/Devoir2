@@ -24,6 +24,7 @@ public class CarteCouleur extends Carte{
     public void paintRecto(Graphics2D g){
 	    g.setColor(this.couleur);//fixe la couleur de la carte à la couleur déterminée par la propriété 'couleur'
 	    g.fillRect(0,0,this.getWidth()-1,this.getHeight()-1);//peinture la carte avec la couleur précédemment établi
+        this.repaint();
     }
     
 }
