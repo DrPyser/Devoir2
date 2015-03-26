@@ -25,48 +25,68 @@ public class Memory {
         }
 
         //prend toutes les cinq valeurs donne par l'utilisateur
-        final int nbRangees = Integer.parseInt(args[0]);
-        final int nbColonnes = Integer.parseInt(args[1]);
+         int nbRangees = Integer.parseInt(args[0]);
+         int nbColonnes = Integer.parseInt(args[1]);
         final int delaiInitial = (int)(Double.parseDouble(args[2]))*1000;
         final int delaiErreur = (int)(Double.parseDouble(args[3]))*1000;
         int themes = Integer.parseInt(args[4]);
+        Carte cartes[];//contient toutes les cartes generes
 
         //demande le theme tant qu'il n'est pas valide
         while (themes > 5 || themes < 0) {
 
             System.out.println("Theme non valide. Choisir parmis la liste de themes disponible: \n" +
-                                     "0: Cartes couleurs \n 1: Lettres A ... Z \n 2: Noms d'émotions" +
-                                     "3: Images d'animaux \n 4: Images de galaxies \n 5: Melange des themes 0 à 4) ");
+                                     "0: Cartes couleurs \n 1: Langage Informatique \n 2: Galaxies" +
+                                     "3:  \n 4:  \n 6:Image Informatique \n 7: Image Lettres Grecs \n " +
+                                     "8: Melange des themes 0 à 7) ");
 
             Scanner scan = new Scanner(System.in);
             themes = scan.nextInt();
 
         }
+        //on ne peut pas avoir plus de 30 cartes en jeu
+        while (nbColonnes*nbRangees > 30){
 
-        JButton [] tableauCartes = new JButton[nbRangees * nbColonnes];//on cree les Cartes
+            System.out.println("Vous ne pouvez pas avoir plus de 30 cartes en jeu. (colonne * range < 30) ");
+            System.out.println("Nombre de colonnes :");
+            Scanner scanC = new Scanner(System.in);
+            nbColonnes = scanC.nextInt();
+            System.out.println("Nombre de range :");
+            Scanner scanR = new Scanner(System.in);
+            nbRangees = scanR.nextInt();
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(nbRangees,nbColonnes));
-        for (int i = 0; i<tableauCartes.length;i++){
-            tableauCartes[i] = new JButton("nb: " + i);
-            panel.add(tableauCartes[i]);
         }
 
-        jeuMemoire(panel);
+        // TODO lis le themes et cree un tableau des mots / images
+        switch(themes) {
+            case 0:
+                GenerateurDeCartesCouleur genereC = new GenerateurDeCartesCouleur();
+                cartes = genereC.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
+                break;
+            default:
+                GenerateurDeCartesCouleur genereA = new GenerateurDeCartesCouleur();
+                cartes = genereA.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
+                break;
+        }
 
-    }
-
-
-    public static void  jeuMemoire(JPanel panneau){
+        //paneau de carte qui contient le grid de carte
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(nbRangees,nbColonnes));
+        for (int i = 0; i<cartes.length;i++){
+            cartes[i].montre();
+            cartes[i].setVisible(true);
+            panel.add(cartes[i]);
+        }
 
         JFrame window = new JFrame("Memory Game");//title of the window
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//what it does when we push x
 
-        window.getContentPane().add(panneau, BorderLayout.CENTER);//set le panel au centre
+        window.getContentPane().add(panel, BorderLayout.CENTER);//set le panel au centre
 
         window.setSize(850, 500);//size in pixel par defaut
         window.setLocationRelativeTo(null);//set to the center of the desktop
         window.setVisible(true);//rend la fenetre visible
 
     }
+
 }
