@@ -34,12 +34,12 @@ public class CarteImage extends Carte{
     }
 
     public void paintRecto(Graphics2D g){
-	        g.drawImage(this.image.getImage(),
+	g.drawImage(this.image.getImage(),
 		    0,
 		    0,//coordonnés de référence = coin supérieur gauche
 		    this.getWidth(),//largeur de la carte
 		    this.getHeight(),//hauteur de la carte
 		    this);//l'observateur est la carte elle même
-		this.repaint();
+        this.repaint();
     }
 }

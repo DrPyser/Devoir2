@@ -44,12 +44,13 @@ public abstract class Carte extends JComponent {
     public abstract void paintRecto(Graphics2D g);
     
     
-    //cette méthode est appelé par repaint()
-    public void paintComponents(Graphics2D g){
+    //cette méthode est appelé par repaint
+    public void paintComponent(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
 	if (this.recto) {
-	    paintRecto(g);
+	    paintRecto(g2);
 	} else{
-	    paintVerso(g);
+	    paintVerso(g2);
 	}
     }
 

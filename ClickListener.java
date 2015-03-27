@@ -1,10 +1,10 @@
 import java.awt.event.*;
 public class ClickListener extends MouseAdapter{
-    PanneauDeCartes panneau;
+
+    private PanneauDeCartes panneau;
+
     public void mouseCliked(MouseEvent e){
-	//une instruction de ce genre là:
-	//panneau.retourneCarte(e.getComponent());
-	
+	    panneau.runGame((Carte) e.getComponent());
     }
 
     public ClickListener(PanneauDeCartes panneau){
