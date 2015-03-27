@@ -11,7 +11,7 @@ public class PanneauDeCartes extends JPanel{
 
     private int delaiInitial, delaisMauvaisePaire;//contient le temps d'attende
     GridLayout carteLayout;//contient le grid
-    Carte cartes[]; // contient les cartes
+    Carte cartes[] ; // contient les cartes
     boolean premiereTournee = false, deuxiemeTournee = false;//contient les cartes si tourner ou non
     Carte premiereCarte;//premiere carte
     int nombreDePaire = 0;//garde le nombre de paire retourner
@@ -23,12 +23,14 @@ public class PanneauDeCartes extends JPanel{
     public PanneauDeCartes(int nRangees, int nColonnes,Carte[] carte,
                            int delaiAffichageDebut, int delaiAffichageErreur){
 
+        cartes = new Carte[carte.length];
         carteLayout = new GridLayout( nRangees, nColonnes,10,10);
         setLayout(carteLayout);
         delaiInitial = delaiAffichageDebut;
         delaisMauvaisePaire = delaiAffichageErreur;
-        for (int i = 0; i< carte.length;i++) {
+        for (int i = 0; i < carte.length;i++) {
             cartes[i] = carte[i];
+            this.add(carte[i]);
         }
     }
 
@@ -87,6 +89,12 @@ public class PanneauDeCartes extends JPanel{
                 timer.stop();
             }
         });
+
+        for(int i = 0; i<cartes.length; i++){
+
+            cartes[i].cache();
+
+        }
 
     }
 

@@ -69,14 +69,15 @@ public class Memory {
                 break;
         }
 
-
-        JPanel panel = new JPanel();
+        PanneauDeCartes panel = new PanneauDeCartes(nbRangees,nbColonnes,cartes,delaiInitial,delaiErreur);
         panel.setLayout(new GridLayout(nbRangees,nbColonnes));
         for (int i = 0; i<cartes.length;i++){
-            cartes[i].montre();
-            cartes[i].setVisible(true);
-            panel.add(cartes[i]);
+            panel.cartes[i].montre();
+            panel.cartes[i].setVisible(true);
+            panel.cartes[i].addMouseListener(panel.click);
         }
+
+        panel.delaiAffichageInitial(delaiInitial);
 
         JFrame window = new JFrame("Memory Game");//title of the window
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//what it does when we push x
@@ -86,8 +87,6 @@ public class Memory {
         window.setSize(850, 500);//size in pixel par defaut
         window.setLocationRelativeTo(null);//set to the center of the desktop
         window.setVisible(true);//rend la fenetre visible
-
-        PanneauDeCartes panea = new PanneauDeCartes(nbRangees,nbColonnes,cartes,delaiInitial,delaiErreur);
 
     }
 
