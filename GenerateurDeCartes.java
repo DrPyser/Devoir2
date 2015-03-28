@@ -1,6 +1,17 @@
 import java.util.Arrays;
 
 public abstract class GenerateurDeCartes{
+    //fonction pour savoir si une carte est présente dans un array de carte
+    public static boolean memberOf(Carte[] cartes,Carte carte){
+	for(int i = 0;i<cartes.length;i++){
+	    if (cartes[i] != null && cartes[i].rectoIdentique(carte)){
+		//si l'élément à l'index i de l'array n'est pas null, et est identique à la carte 'carte', retourne 'true'
+		return true;
+	    }
+	}
+	return false;
+    }
+
     private String nom;
     
     public String getNom(){
@@ -22,7 +33,7 @@ public abstract class GenerateurDeCartes{
 	for(int i = 0;i<cartes.length;i++){
 	    carte = this.genereUneCarte();
 	    //si la carte est déjà présente dans la liste
-	    if(Arrays.asList(cartes).contains(carte)){
+	    if (memberOf(cartes,carte)){
 		//si n<=nombre de cartes differentes, alors il est possible de produire un ensemble de n cartes différentes
 		//si le nombre de duplicats a déjà atteint le treshold(nombre minimum de duplicats possible), 
 		//alors il est possible de ne générer que des cartes différentes de celles déjà générées
@@ -34,8 +45,10 @@ public abstract class GenerateurDeCartes{
 		}
 	    } else {
 		cartes[i] = carte;
+		System.out.println(cartes[i].toString());
 	    }
 	}
+
 	return cartes;
     }
 

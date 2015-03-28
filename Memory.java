@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.Arrays;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,26 +17,27 @@ public class Memory {
     public static void main (String[] args) throws IOException {
         //il est necessaire d'avoir cinq arguments
 
+//vérification des arguments	
         if (args.length < 5 ) {
 
             System.out.println("Nombre de paramètres incorrects.");
             System.out.println("Utilisation: java Memory <nRangees> <nColonnes>" +
-                    " <delaisAffichageInitial(ms)> <delaisAffichageMauvaisePaire(ms)> <numeroDeTheme>.");
-            System.out.println("Ex: java Memory 5 6 5000 1000 3");
+                    " <delaisAffichageInitial(s)> <delaisAffichageMauvaisePaire(s)> <numeroDeTheme>.");
+            System.out.println("Ex: java Memory 5 6 5 1 3");
             System.out.println("Choisir parmis la liste de themes disponible: \n" +
                     " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
-                    " 3: Notion Informatique  \n \n 6: Image Lettres Grecs \n " +
-                    "8: Melange des themes 0 à 7) ");
+                    " 3: Notion Informatique \n 4: Image Lettres Grecs \n 5: " +
+                    "6: Melange des themes 0 à 5 ");
 
             System.exit(42);
 
         }
 
-        //prend toutes les cinq valeurs donne par l'utilisateur
+        //parsing des arguments donnés par l'utilisateur
 	int nbRangees = Integer.parseInt(args[0]);
 	int nbColonnes = Integer.parseInt(args[1]);
-        final int delaiInitial = (Integer.parseInt(args[2]));//délai initial en nombre de millisecondes
-        final int delaiErreur = (Integer.parseInt(args[3]));//délai pour une erreur en nombre de millisecondes
+        final int delaiInitial = (Integer.parseInt(args[2])*1000);//délai initial en nombre de millisecondes
+        final int delaiErreur = (Integer.parseInt(args[3])*1000);//délai pour une erreur en nombre de millisecondes
         int themes = Integer.parseInt(args[4]);//numéro du thème
         Carte[] cartes = {};//contient toutes les cartes générées
 
@@ -91,6 +93,7 @@ public class Memory {
 		      System.exit(3);
 		  
 		  }
+		  break;
 
 	      case 2:
 		  //astres du système solaire
@@ -109,7 +112,7 @@ public class Memory {
 			System.exit(3);
 		    
 		    }
-
+		    break;
 
             case 3:
 		//Concepts d'informatique
@@ -120,25 +123,21 @@ public class Memory {
                 try {
 		    Scanner file = new Scanner(new File("concepts.txt"));
 		    String[] words = file.nextLine().split(",");
+		    System.out.println("Il y a "+words.length+" cartes différentes dans ce thème");
 		    GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
+		    System.out.println(genereNotions.nombreDeCartesDifferentes());
 		    cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
-
+		    
                 } catch (FileNotFoundException exc) {
 
-                    System.out.println("You don't have the themes files in the right place, or it is inexistant");
+                    System.out.println("You don't have the themes files in the right place, or they are inexistant.");
                     System.exit(3);
 
                 }
 		
 		break;
 
-		/*
-		  case 5:
-                nomTheme = "ImageBD";
-                changement = false;
-		*/
-
-            case 6:
+            case 4:
 		//image de lettres grecques
 		nomTheme = "ImageGrecs";
 		changement = false;
@@ -159,6 +158,27 @@ public class Memory {
                 }
                 break;
 		
+	    case 5:
+		nomTheme = "bande-dessinées";
+
+		//essaie de trouver le fichier. S'il existe, le sépare en une array de noms/chemins de fichiers images.
+		//Sinon, signale l'erreur et exit
+                try {
+		    Scanner file = new Scanner(new File("ImageBD.txt")).useDelimiter("\\A");//considère tout le fichier comme un "token"
+		    String[] paths = file.next().split("\n");//prend tout le texte du fichier, et sépare chaque lignes
+		    file.close();
+		    GenerateurDeCartesImage genereImage = new GenerateurDeCartesImage(nomTheme,paths);
+		    cartes = genereImage.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));
+                } catch (FileNotFoundException exc) {
+                    System.out.println("You don't have the image theme files in the right place, or it is inexistant.");
+                    System.exit(3);
+                }
+
+                break;
+
+	    case 6:
+		
+		
             default:
 		//par défaut, cartes couleur
 		GenerateurDeCartesCouleur genereC = new GenerateurDeCartesCouleur();
@@ -168,7 +188,6 @@ public class Memory {
                 break;
 
         }
-
 
 	//création de la fenêtre                                               
         JFrame window = new JFrame("Memory Game");//title of the window
