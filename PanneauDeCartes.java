@@ -5,111 +5,133 @@ import java.awt.event.ActionListener;
 
 /**
  * Created by Alexandra on 19-03-15.
- * sub-class of carte
+ * 
  */
+
 public class PanneauDeCartes extends JPanel{
 
-    private int delaiInitial, delaisMauvaisePaire;//contient le temps d'attende
-    GridLayout carteLayout;//contient le grid
-    Carte cartes[] ; // contient les cartes
-    boolean premiereTournee = false, deuxiemeTournee = false;//contient les cartes si tourner ou non
-    Carte premiereCarte;//premiere carte
-    int nombreDePaire = 0;//garde le nombre de paire retourner
-    int nbCoup = 0;//garde le nombre de coup
-    Timer timer;//conserve le timer
-
+    private final int delaiInitial, delaiMauvaisePaire;//contient le temps d'attende
+    private GridLayout carteLayout;//contient le grid
+    private final Carte cartes[]; //contient les cartes
+    private boolean premiereTournee = false, deuxiemeTournee = false;//contient les cartes si tourner ou non
+    private Carte premiereCarte;//premiere carte
+    private int nombreDePaires = 0;//garde le nombre de paire retourner
+    private int nbCoup = 0;//garde le nombre de coup
+    private ClickListener clicklistener;
 
     //constructeur prend le nb ranger nb colonnes les cartes le delai affichage et delai erreur
-    public PanneauDeCartes(int nRangees, int nColonnes,Carte[] carte,
+    public PanneauDeCartes(int nRangees, int nColonnes,Carte[] cartes,
                            int delaiAffichageDebut, int delaiAffichageErreur){
 
-        cartes = new Carte[carte.length];
-        carteLayout = new GridLayout( nRangees, nColonnes,10,10);
-        setLayout(carteLayout);
-        delaiInitial = delaiAffichageDebut;
-        delaisMauvaisePaire = delaiAffichageErreur;
-        for (int i = 0; i < carte.length;i++) {
-            cartes[i] = carte[i];
-            this.add(carte[i]);
+        this.cartes = cartes;//cartes du panneau
+        this.carteLayout = new GridLayout( nRangees, nColonnes,10,10);
+        this.setLayout(carteLayout);
+        this.delaiInitial = delaiAffichageDebut;//délai pour l'affichage initial des cartes
+        this.delaiMauvaisePaire = delaiAffichageErreur;//délai lors d'une erreur de la part du joueur
+
+	//instancie le clicklistener
+	this.clicklistener = new ClickListener(this);
+
+        for (int i = 0; i < cartes.length;i++) {
+            this.add(cartes[i]);//ajoute la carte au panneau
+	    this.cartes[i].addMouseListener(clicklistener);//ajoute le listener à la carte
+	    this.cartes[i].montre();//montre la carte
         }
+	delaiAffichageInitial();//attend 'delaiInitial' secondes, et retourne les cartes
     }
-
-    //instancie le clicklistener
-    ClickListener click = new ClickListener(this);
-
-    //contient la carte tourne
-    public void runGame (Carte carteTourne){
-
-        //observe quelle carte est tourner
-        if (!premiereTournee){//premiere carte tourner
-            if (carteTourne.estCachee()) {//si la carte n'est pas tourner on la tourne
-                premiereTournee = true;
+    
+    //permet de tourner une carte en gérant le délai imposé lors d'une erreur
+    public void carteClicked (Carte carteTourne){
+	Timer timer;//le timer utiliser lors d'une erreur
+        //observe quelle carte est tournée
+        if (!premiereTournee){//premiere carte tourné
+            if (carteTourne.estCachee()) {
+		//si la carte n'est pas tourné on la tourne
+                this.premiereTournee = true;
                 carteTourne.montre();
-                premiereCarte = (Carte) carteTourne;
+                this.premiereCarte = (Carte) carteTourne;
                 nbCoup ++;
-            }else{
-
-                System.out.println("Carte deja retourne.");
+            } else {
+                System.out.println("Carte déjà retournée.");
             }
-        } else if (!deuxiemeTournee){//deuxieme carte tourner
+        } else if (!deuxiemeTournee){//deuxieme carte tournée
             if(carteTourne.estCachee()) {
-                deuxiemeTournee = true;
+                this.deuxiemeTournee = true;
                 carteTourne.montre();
                 nbCoup++;
-                //regarde si identique si oui 1 paire de plus si non attente delais erreur
-                if (carteTourne.rectoIdentique(premiereCarte)) {//bravo une pare reussie
-                    nombreDePaire++;
-                    if (nombreDePaire == Math.floor(cartes.length / 2)) {//si on a le nombre de paire
+                //regarde si identique si oui 1 paire de plus si non attente delai erreur
+                if (carteTourne.rectoIdentique(premiereCarte)) {
+		    //bravo une paire reussie
+                    nombreDePaires++;
+                    if (nombreDePaires == Math.floor(cartes.length / 2)) {
+			//si on a le nombre de paire
                         System.out.println("Bravo vous avez toutes les paires! ");
                         System.out.println("Vous avez gagne en "+nbCoup+" coups.");
+			//demande pour une nouvelle partie
                     }
 
-
-                } else {//cas d'attente et retourne les cartes apres l'attente
-
-                    this.delaiAffichageMauvaisePaire(delaisMauvaisePaire);
-                    premiereCarte.cache();
-                    carteTourne.cache();
+                } else {
+		    //si deux cartes différentes, délais d'attente
+		    //on instancie directement le timer
+		    //après 'delaiMauvaisePaire' millisecondes, retourne les cartes
+		    timer = new Timer(delaiMauvaisePaire,new ActionListener() {
+			    @Override
+			    public void actionPerformed(ActionEvent e) {
+				premiereCarte.cache();//retourne la première carte
+				carteTourne.cache();//retourne la deuxième carte
+			    }
+			});
+		    timer.setInitialDelay(delaiMauvaisePaire);//le délais initial est celui déterminé par la variable "delaiMauvaisePaire"
+		    timer.setRepeats(false);//pas de répétition
+		    timer.start();
 
                 }
+
             }
-        }else {//tentative de troisieme tournage de carte
+
+	    //on réinitialise le "cycle"
+	    this.premiereTournee = false;
+	    this.deuxiemeTournee = false;
+	       
+        } else {
+	    //si un click est fait sur une troisième carte avant la fin des délais
             System.out.println("Vous ne pouvez pas encore tourner une autre carte.");
         }
 
     }
 
-    //diverse delais soit affichage initial erreur et le sleep
-    public void delaiAffichageInitial(final int delaiInitial){
+    //délais initial pour l'affichage des cartes
+    public void delaiAffichageInitial(){
 
-        timer = new Timer(delaiInitial,new ActionListener() {
+	//après 'délaiInitial' millisecondes, cache toutes les cartes du jeu
+        Timer timer = new Timer(this.delaiInitial,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sleep(delaiInitial);
-                timer.stop();
+		for (Carte carte: cartes){
+		    carte.cache();
+		}
             }
         });
-
-        for(int i = 0; i<cartes.length; i++){
-
-            cartes[i].cache();
-
-        }
-
+	timer.setInitialDelay(this.delaiInitial);//délai initial = 'délaiInitial'
+	timer.setRepeats(false);//pas de répétition
+	timer.start();
     }
 
-    public void delaiAffichageMauvaisePaire(final int delaisMauvaisePaire){
+    
+    /* le code ci-dessous n'est pas utilisé
+    //délais après un erreur
+    public void delaiAffichageMauvaisePaire(int delai){
 
-        timer = new Timer(delaiInitial,new ActionListener() {
+        Timer timer = new Timer(delai,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sleep(delaisMauvaisePaire);
-                timer.stop();
             }
         });
-
+	timer.setInitialDelay(delai);
+	timer.setRepeats(false);
+	timer.start();
     }
-
+    
     public static void sleep(int secondes){
 
         long temps = secondes*1000;
@@ -125,5 +147,6 @@ public class PanneauDeCartes extends JPanel{
         }
 
     }
+    */
 
 }

@@ -3,8 +3,9 @@ public class ClickListener extends MouseAdapter{
 
     private PanneauDeCartes panneau;
 
-    public void mouseCliked(MouseEvent e){
-	    panneau.runGame((Carte) e.getComponent());
+    @Override
+    public void mouseClicked(MouseEvent e){
+	panneau.carteClicked((Carte) e.getComponent());
     }
 
     public ClickListener(PanneauDeCartes panneau){
