@@ -24,7 +24,7 @@ public class Memory {
             System.out.println("Ex: java Memory 5 6 5000 1000 3");
             System.out.println("Choisir parmis la liste de themes disponible: \n" +
                     " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
-                    " 3: Notion Informatique  \n 4:  \n 6: Image Informatique \n 7: Image Lettres Grecs \n " +
+                    " 3: Notion Informatique  \n \n 6: Image Lettres Grecs \n " +
                     "8: Melange des themes 0 à 7) ");
 
             System.exit(42);
@@ -34,18 +34,18 @@ public class Memory {
         //prend toutes les cinq valeurs donne par l'utilisateur
 	int nbRangees = Integer.parseInt(args[0]);
 	int nbColonnes = Integer.parseInt(args[1]);
-        final int delaisInitial = (Integer.parseInt(args[2]));//délai initial en nombre de millisecondes
-        final int delaisErreur = (Integer.parseInt(args[3]));//délai pour une erreur en nombre de millisecondes
+        final int delaiInitial = (Integer.parseInt(args[2]));//délai initial en nombre de millisecondes
+        final int delaiErreur = (Integer.parseInt(args[3]));//délai pour une erreur en nombre de millisecondes
         int themes = Integer.parseInt(args[4]);//numéro du thème
-        Carte cartes[];//contient toutes les cartes générées
+        Carte[] cartes = {};//contient toutes les cartes générées
 
         //demande le thème tant qu'il n'est pas valide
 	Scanner scan = new Scanner(System.in);
-        while (themes > 5 || themes < 0) {
+        while (themes > 8 || themes < 0) {
 
             System.out.println("Theme non valide. Choisir parmis la liste de themes disponible: " +
                     " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
-                            " 3: Notion Informatique  \n 4:  \n 6: Image Informatique \n 7: Image Lettres Grecs \n " +
+                            " 3: Notion Informatique  \n 4:  \n 6: Image Lettres Grecs \n  " +
                             "8: Melange des themes 0 à 7) ");
 
 
@@ -66,126 +66,107 @@ public class Memory {
         }
 	scan.close();
 
-        String theme = "";//contient le theme des cartes en mot
+        String nomTheme;//contient le theme des cartes en mot
         boolean changement = true;//dit si on peut changer le theme
-
+	
+	//sélection du thème
         switch(themes) {
-            case 0:
-                GenerateurDeCartesCouleur genereC = new GenerateurDeCartesCouleur();
-                cartes = genereC.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
-                theme = "Couleurs";
-                changement = false;
-                break;
-            case 1:
-                theme = "Langue Informatique";
-                changement = false;
-            case 2:
-                if (changement){
-                    theme = "Systeme Solaire";
-                    changement = false;
-                }
+	    
+	      case 1:
+		  //languages informatiques
+		  nomTheme = "Languages Informatique";
+		  changement = false;
+		  //essai de lire le fichier contenant les languages
+		  try {
+		      //idiome répété pour les autres thèmes:
+		      //on utilise un scanner pour lire le fichier au complet, puis on split le string résultant aux delimiteurs appropriés
+		      Scanner file = new Scanner(new File("languages.txt"));
+		      String[] words = file.nextLine().split(",");//ici, on sépare les mots aux virgules
+		      GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
+		      cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
+		      
+		  } catch (FileNotFoundException exc) {
+		      
+		      System.out.println("You don't have the themes files in the right place, or it is inexistant");
+		      System.exit(3);
+		  
+		  }
+
+	      case 2:
+		  //astres du système solaire
+                    nomTheme = "Systeme Solaire";
+		    //changement = false;
+		    //voir thème précédent
+		    try {
+			Scanner file = new Scanner(new File("systèmesolaire.txt"));
+			String[] words = file.nextLine().split(",");
+			GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
+			cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
+		    
+		    } catch (FileNotFoundException exc) {
+			
+			System.out.println("You don't have the themes files in the right place, or it is inexistant");
+			System.exit(3);
+		    
+		    }
+
+
             case 3:
-                if (changement){
-                    theme = "Notion Informatique";
-                    changement = false;
-                }
-                //get the path containing themesMots.txt
-                File temp = File.createTempFile("themesMots", ".txt" );
-                String absolutePath = temp.getAbsolutePath();
-
-                String textPath = absolutePath;//lien vers les themes
-                BufferedReader flux = null;
-                String ligne;
-                String elementsDeLigne[] = new String[17];
-
-                //try to find the file if not close and tell it havent found it
+		//Concepts d'informatique
+		nomTheme = "Notion Informatique";
+		//changement = false;
+		
+		//voir thèmes précédent
                 try {
+		    Scanner file = new Scanner(new File("concepts.txt"));
+		    String[] words = file.nextLine().split(",");
+		    GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
+		    cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
 
-                    flux = new BufferedReader(new FileReader(textPath ));
-
-                }catch (FileNotFoundException exc) {
+                } catch (FileNotFoundException exc) {
 
                     System.out.println("You don't have the themes files in the right place, or it is inexistant");
                     System.exit(3);
 
                 }
+		
+		break;
 
-                int rendu = 1;//nous prend le bonne elements dans les lignes
-                //takes all the text and remembers it
-                while ((ligne = flux.readLine()) != null) {
-
-                    if (themes == rendu) {//prend la ligne dans elementsDeLigne lorsque c'est le bon element
-
-                        elementsDeLigne = ligne.split(",");//split at , to put in the tableau
-
-                    }
-                    rendu++;
-                }
-
-                flux.close();//fermer le flux a la fin
-
-                //genere les cartes
-                GenerateurDeCartesMot genereM = new GenerateurDeCartesMot(theme,elementsDeLigne);
-                cartes = genereM.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
-                break;
-            case 5:
-                theme = "ImageBD";
+		/*
+		  case 5:
+                nomTheme = "ImageBD";
                 changement = false;
+		*/
+
             case 6:
-                if (changement){
-                    theme = "ImageGrecs";
-                    changement = false;
-                }
+		//image de lettres grecques
+		nomTheme = "ImageGrecs";
+		changement = false;
 
-                //TODO find how to make the text file path for everything
-                //get the path containing "theme".txt
-                File tmp = File.createTempFile(theme, ".txt" );
-                String pathAbsolue = tmp.getAbsolutePath();
-
-                String imagePath = pathAbsolue;//lien vers les themes
-                BufferedReader entree = null;
-                String rangee;
-                String imageLien[] = new String[15];
-
-                //try to find the file if not close and tell it havent found it
+		//essaie de trouver le fichier. S'il existe, le sépare en une array de noms/chemins de fichiers images.
+		//Sinon, signale l'erreur et exit
                 try {
-
-                    entree = new BufferedReader(new FileReader(imagePath));
-
+		    Scanner file = new Scanner(new File("cheminsimagesgrec.txt")).useDelimiter("\\A");//considère tout le fichier comme un "token"
+		    String[] paths = file.next().split("\n");//prend tout le texte du fichier, et sépare chaque lignes
+		    file.close();
+		    GenerateurDeCartesImage genereImage = new GenerateurDeCartesImage(nomTheme,paths);
+		    cartes = genereImage.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));
                 }catch (FileNotFoundException exc) {
 
                     System.out.println("You don't have the image theme files in the right place, or it is inexistant.");
                     System.exit(3);
 
                 }
-
-                int i = 0;
-                //takes all the text and remembers it
-                while ((rangee = entree.readLine()) != null) {
-
-                    //prend les 15 premier automatiquement puis apres le prend aleatoirement (0.4%) et le place aleatorement
-                    if (i >= imageLien.length){
-                        if(Math.random() < 0.4 ){
-                            imageLien[(int)(Math.floor(Math.random()*15 +1))] = rangee;
-                        }
-                    }else {
-                        imageLien[i] = rangee;
-                        i++;
-                    }
-
-                }
-
-                entree.close();//fermer le flux a la fin
-
-                //genere les cartes
-                GenerateurDeCartesMot genereI = new GenerateurDeCartesMot(theme,imageLien);
-                cartes = genereI.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
                 break;
-
+		
             default:
-                GenerateurDeCartesCouleur genereA = new GenerateurDeCartesCouleur();
-                cartes = genereA.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
+		//par défaut, cartes couleur
+		GenerateurDeCartesCouleur genereC = new GenerateurDeCartesCouleur();
+                cartes = genereC.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
+                nomTheme = "Couleurs";
+                changement = false;
                 break;
+
         }
 
 
@@ -199,16 +180,8 @@ public class Memory {
 	
         window.setVisible(true);//rend la fenetre visible
 
-	//attend un temps défini, puis retourne toutes les cartes sur leur face cachée
-	/*
-	for (int i = 0; i<cartes.length;i++){
-	    panel.cartes[i].addMouseListener(panel.click);
-            panel.cartes[i].montre();
-            panel.cartes[i].setVisible(true);
-        }
-	*/
 	//création du panneau de carte
-        PanneauDeCartes panel = new PanneauDeCartes(nbRangees,nbColonnes,cartes,delaisInitial,delaisErreur);
+        PanneauDeCartes panel = new PanneauDeCartes(nbRangees,nbColonnes,cartes,delaiInitial,delaiErreur);
 	window.getContentPane().add(panel, BorderLayout.CENTER);//set le panel au centre
 
 	//le constructeur du panneau initialise les cartes au coté recto, et ensuite les retourne après un délai

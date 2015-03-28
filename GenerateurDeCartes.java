@@ -22,7 +22,7 @@ public abstract class GenerateurDeCartes{
 	for(int i = 0;i<cartes.length;i++){
 	    carte = this.genereUneCarte();
 	    //si la carte est déjà présente dans la liste
-	    if(Arrays.asList(cartes).indexOf(carte) != -1){
+	    if(Arrays.asList(cartes).contains(carte)){
 		//si n<=nombre de cartes differentes, alors il est possible de produire un ensemble de n cartes différentes
 		//si le nombre de duplicats a déjà atteint le treshold(nombre minimum de duplicats possible), 
 		//alors il est possible de ne générer que des cartes différentes de celles déjà générées
