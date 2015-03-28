@@ -22,9 +22,10 @@ public class Memory {
             System.out.println("Utilisation: java Memory <nRangees> <nColonnes>" +
                     " <delaisAffichageInitial(ms)> <delaisAffichageMauvaisePaire(ms)> <numeroDeTheme>.");
             System.out.println("Ex: java Memory 5 6 5000 1000 3");
-            System.out.println("Voici la liste des themes disponibles: \n " +
-                                    "0: Cartes couleurs \n 1: Lettres A ... Z \n 2: Noms d'émotions" +
-                                    "3: Images d'animaux \n 4: Images de galaxies \n 5: Melange des themes 0 à 4) ");
+            System.out.println("Choisir parmis la liste de themes disponible: \n" +
+                    " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
+                    " 3: Notion Informatique  \n 4:  \n 6: Image Informatique \n 7: Image Lettres Grecs \n " +
+                    "8: Melange des themes 0 à 7) ");
 
             System.exit(42);
 
@@ -42,10 +43,10 @@ public class Memory {
 	Scanner scan = new Scanner(System.in);
         while (themes > 5 || themes < 0) {
 
-            System.out.println("Theme non valide. Choisir parmis la liste de themes disponible: \n" +
-			       "0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire" +
-			       "3: Notion Informatique  \n 4:  \n 6:Image Informatique \n 7: Image Lettres Grecs \n " +
-			       "8: Melange des themes 0 à 7) ");
+            System.out.println("Theme non valide. Choisir parmis la liste de themes disponible: " +
+                    " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
+                            " 3: Notion Informatique  \n 4:  \n 6: Image Informatique \n 7: Image Lettres Grecs \n " +
+                            "8: Melange des themes 0 à 7) ");
 
 
             themes = scan.nextInt();
