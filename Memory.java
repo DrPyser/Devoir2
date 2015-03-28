@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;//import le scanner
+import java.util.Scanner;
+import java.io.File;
+
+
 /**
  * Created by Alexandra on 19-03-15.
  */
@@ -85,8 +88,11 @@ public class Memory {
                     theme = "Notion Informatique";
                     changement = false;
                 }
-                //TODO find how to make the text file path for everything
-                String textPath = "C:\\Users\\Alexandra\\workspace\\Memory\\src\\themesMots.txt";//lien vers les themes
+                //get the path containing themesMots.txt
+                File temp = File.createTempFile("themesMots", ".txt" );
+                String absolutePath = temp.getAbsolutePath();
+
+                String textPath = absolutePath;//lien vers les themes
                 BufferedReader flux = null;
                 String ligne;
                 String elementsDeLigne[] = new String[17];
@@ -131,7 +137,11 @@ public class Memory {
                 }
 
                 //TODO find how to make the text file path for everything
-                String imagePath = "C:\\Users\\Alexandra\\workspace\\Memory\\src\\"+theme+" .txt";//lien vers les themes
+                //get the path containing "theme".txt
+                File tmp = File.createTempFile(theme, ".txt" );
+                String pathAbsolue = tmp.getAbsolutePath();
+
+                String imagePath = pathAbsolue;//lien vers les themes
                 BufferedReader entree = null;
                 String rangee;
                 String imageLien[] = new String[15];
