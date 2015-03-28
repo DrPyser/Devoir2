@@ -1,1 +1,3 @@
+Java,JavaScript,Python,C++,Ruby,Perle,VHDL,Assembleur,C,Basic,VisualBasic,PHP,LISP,Haskell,Fortran,Batch,R
+Soleil,Venus,Mars,Terre,Mercure,Jupiter,Saturne,Neptune,Uranus,Pluton,Lune,Charon,Europa,Vulcanoide,Deimos,Phobos,Io
 continuation,recursion,looping,inheritance,sorting,events,functions,subroutines,thread,lambda,combinator,generator,closure,factory,stack,tree,queuetype

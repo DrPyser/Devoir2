@@ -1,0 +1,15 @@
+Images/bug1.jpg
+Images/bug2.jpg
+Images/bug3.jpg
+Images/info1.jpg
+Images/info2.jpg
+Images/info3.jpg
+Images/info4.jpg
+Images/info5.jpg
+Images/info6.jpg
+Images/info7.jpg
+Images/info8.jpg
+Images/Pirate1.jpg
+Images/Pirate2.jpg
+Images/Pirate3.jpg
+Images/Pirate4.jpg

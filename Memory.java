@@ -1,12 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;//import le scanner
 /**
  * Created by Alexandra on 19-03-15.
  */
 public class Memory {
 
-    public static void main (String[] args){
+    public static void main (String[] args) throws IOException {
         //il est necessaire d'avoir cinq arguments
 
         if (args.length < 5 ) {
@@ -36,8 +40,8 @@ public class Memory {
         while (themes > 5 || themes < 0) {
 
             System.out.println("Theme non valide. Choisir parmis la liste de themes disponible: \n" +
-			       "0: Cartes couleurs \n 1: Langage Informatique \n 2: Galaxies" +
-			       "3:  \n 4:  \n 6:Image Informatique \n 7: Image Lettres Grecs \n " +
+			       "0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire" +
+			       "3: Notion Informatique  \n 4:  \n 6:Image Informatique \n 7: Image Lettres Grecs \n " +
 			       "8: Melange des themes 0 à 7) ");
 
 
@@ -57,12 +61,116 @@ public class Memory {
 
         }
 	scan.close();
-        // TODO lis le themes et cree un tableau des mots / images
+
+        String theme = "";//contient le theme des cartes en mot
+        boolean changement = true;//dit si on peut changer le theme
+
         switch(themes) {
             case 0:
                 GenerateurDeCartesCouleur genereC = new GenerateurDeCartesCouleur();
                 cartes = genereC.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
+                theme = "Couleurs";
+                changement = false;
                 break;
+            case 1:
+                theme = "Langue Informatique";
+                changement = false;
+            case 2:
+                if (changement){
+                    theme = "Systeme Solaire";
+                    changement = false;
+                }
+            case 3:
+                if (changement){
+                    theme = "Notion Informatique";
+                    changement = false;
+                }
+                //TODO find how to make the text file path for everything
+                String textPath = "C:\\Users\\Alexandra\\workspace\\Memory\\src\\themesMots.txt";//lien vers les themes
+                BufferedReader flux = null;
+                String ligne;
+                String elementsDeLigne[] = new String[17];
+
+                //try to find the file if not close and tell it havent found it
+                try {
+
+                    flux = new BufferedReader(new FileReader(textPath ));
+
+                }catch (FileNotFoundException exc) {
+
+                    System.out.println("You don't have the themes files in the right place, or it is inexistant");
+                    System.exit(3);
+
+                }
+
+                int rendu = 1;//nous prend le bonne elements dans les lignes
+                //takes all the text and remembers it
+                while ((ligne = flux.readLine()) != null) {
+
+                    if (themes == rendu) {//prend la ligne dans elementsDeLigne lorsque c'est le bon element
+
+                        elementsDeLigne = ligne.split(",");//split at , to put in the tableau
+
+                    }
+                    rendu++;
+                }
+
+                flux.close();//fermer le flux a la fin
+
+                //genere les cartes
+                GenerateurDeCartesMot genereM = new GenerateurDeCartesMot(theme,elementsDeLigne);
+                cartes = genereM.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
+                break;
+            case 5:
+                theme = "ImageBD";
+                changement = false;
+            case 6:
+                if (changement){
+                    theme = "ImageGrecs";
+                    changement = false;
+                }
+
+                //TODO find how to make the text file path for everything
+                String imagePath = "C:\\Users\\Alexandra\\workspace\\Memory\\src\\"+theme+" .txt";//lien vers les themes
+                BufferedReader entree = null;
+                String rangee;
+                String imageLien[] = new String[15];
+
+                //try to find the file if not close and tell it havent found it
+                try {
+
+                    entree = new BufferedReader(new FileReader(imagePath));
+
+                }catch (FileNotFoundException exc) {
+
+                    System.out.println("You don't have the image theme files in the right place, or it is inexistant.");
+                    System.exit(3);
+
+                }
+
+                int i = 0;
+                //takes all the text and remembers it
+                while ((rangee = entree.readLine()) != null) {
+
+                    //prend les 15 premier automatiquement puis apres le prend aleatoirement (0.4%) et le place aleatorement
+                    if (i >= imageLien.length){
+                        if(Math.random() < 0.4 ){
+                            imageLien[(int)(Math.floor(Math.random()*15 +1))] = rangee;
+                        }
+                    }else {
+                        imageLien[i] = rangee;
+                        i++;
+                    }
+
+                }
+
+                entree.close();//fermer le flux a la fin
+
+                //genere les cartes
+                GenerateurDeCartesMot genereI = new GenerateurDeCartesMot(theme,imageLien);
+                cartes = genereI.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes
+                break;
+
             default:
                 GenerateurDeCartesCouleur genereA = new GenerateurDeCartesCouleur();
                 cartes = genereA.generePairesDeCartesMelangees(nbColonnes * nbRangees);//cree les cartes

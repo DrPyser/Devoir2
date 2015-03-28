@@ -41,7 +41,7 @@ public class PanneauDeCartes extends JPanel{
     }
     
     //permet de tourner une carte en gérant le délai imposé lors d'une erreur
-    public void carteClicked (Carte carteTourne){
+    public void carteClicked (final Carte carteTourne){
 	Timer timer;//le timer utiliser lors d'une erreur
         //observe quelle carte est tournée
         if (!premiereTournee){//premiere carte tourné
