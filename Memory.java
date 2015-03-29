@@ -39,7 +39,6 @@ public class Memory {
         final int delaiInitial = (Integer.parseInt(args[2])*1000);//délai initial en nombre de millisecondes
         final int delaiErreur = (Integer.parseInt(args[3])*1000);//délai pour une erreur en nombre de millisecondes
         int themes = Integer.parseInt(args[4]);//numéro du thème
-        Carte[] cartes = {};//contient toutes les cartes générées
 
         //demande le thème tant qu'il n'est pas valide
 	Scanner scan = new Scanner(System.in);
@@ -67,17 +66,18 @@ public class Memory {
 
         }
 	scan.close();
+	generateGame(nbRangees,nbColonnes,delaiInitial,delaiErreur,themes);
+    }
+    public static void generateGame(int nbRangees,int nbColonnes,int delaiInitial,int delaiErreur,int theme){    
+	Carte[] cartes = {};//contient toutes les cartes générées
+	String nomTheme;//contient le theme des cartes en mot
 
-        String nomTheme;//contient le theme des cartes en mot
-        boolean changement = true;//dit si on peut changer le theme
-	
 	//sélection du thème
-        switch(themes) {
+        switch(theme) {
 	    
 	      case 1:
 		  //languages informatiques
 		  nomTheme = "Languages Informatique";
-		  changement = false;
 		  //essai de lire le fichier contenant les languages
 		  try {
 		      //idiome répété pour les autres thèmes:
@@ -98,7 +98,6 @@ public class Memory {
 	      case 2:
 		  //astres du système solaire
                     nomTheme = "Systeme Solaire";
-		    //changement = false;
 		    //voir thème précédent
 		    try {
 			Scanner file = new Scanner(new File("systèmesolaire.txt"));
@@ -117,7 +116,6 @@ public class Memory {
             case 3:
 		//Concepts d'informatique
 		nomTheme = "Notion Informatique";
-		//changement = false;
 		
 		//voir thèmes précédent
                 try {
@@ -140,7 +138,6 @@ public class Memory {
             case 4:
 		//image de lettres grecques
 		nomTheme = "ImageGrecs";
-		changement = false;
 
 		//essaie de trouver le fichier. S'il existe, le sépare en une array de noms/chemins de fichiers images.
 		//Sinon, signale l'erreur et exit
@@ -184,7 +181,6 @@ public class Memory {
 		GenerateurDeCartesCouleur genereC = new GenerateurDeCartesCouleur();
                 cartes = genereC.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
                 nomTheme = "Couleurs";
-                changement = false;
                 break;
 
         }
@@ -206,7 +202,26 @@ public class Memory {
 	//le constructeur du panneau initialise les cartes au coté recto, et ensuite les retourne après un délai
 
 	//à partir de ce point, les intéractions par click de souris et le fonctionnement du Panneau déterminent le reste de la partie
+	while(panel.getNbCartesShown() < cartes.length){
+	}
+	nouvellePartie(nbRangees,nbColonnes,delaiInitial,delaiErreur,theme);
+    }
 
+    public static void nouvellePartie(int nbrangés,int nbcolonnes,int delaiInitial,int delaiErreur,int theme){
+	System.out.println("Voulez-vous faire une nouvelle partie? [oui/o|non/n]");
+	Scanner scan = new Scanner(System.in);
+	String answer = scan.next();
+	while(answer != "oui" || answer != "o" || answer != "non" || answer != "n"){
+	    System.out.println("Vous n'avez pas entré une réponse valide. Veuillez réessayer.");
+	    answer = scan.next();
+	}
+	if (answer.equalsIgnoreCase("oui") || answer.equalsIgnoreCase("o")){
+	    generateGame(nbrangés,nbcolonnes,delaiInitial,delaiErreur,theme);
+	} else {
+	    System.out.println("Au revoir, Dave.");
+	    System.exit(3);
+	}
+	
     }
 
 }

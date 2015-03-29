@@ -18,7 +18,7 @@ public class PanneauDeCartes extends JPanel{
     private int nombreDePaires = 0;//garde le nombre de paire retourner
     private int nbCoup = 0;//garde le nombre de coup
     private ClickListener clicklistener;
-
+    private int nbCartesShown = 0;
     //constructeur prend le nb ranger nb colonnes les cartes le delai affichage et delai erreur
     public PanneauDeCartes(int nRangees, int nColonnes,Carte[] cartes,
                            int delaiAffichageDebut, int delaiAffichageErreur){
@@ -40,6 +40,9 @@ public class PanneauDeCartes extends JPanel{
 	delaiAffichageInitial();//attend 'delaiInitial' secondes, et retourne les cartes
     }
     
+    public int getNbCartesShown(){
+	return this.nbCartesShown;
+    }
     //permet de tourner une carte en gérant le délai imposé lors d'une erreur
     public void carteClicked (final Carte carteTourne){
 	Timer timer;//le timer utiliser lors d'une erreur
@@ -50,20 +53,22 @@ public class PanneauDeCartes extends JPanel{
                 this.premiereTournee = true;
                 carteTourne.montre();
                 this.premiereCarte = (Carte) carteTourne;
-                nbCoup ++;
+                this.nbCoup ++;
             } else {
                 System.out.println("Carte déjà retournée.");
             }
+
         } else if (!deuxiemeTournee){//deuxieme carte tournée
             if(carteTourne.estCachee()) {
                 this.deuxiemeTournee = true;
                 carteTourne.montre();
-                nbCoup++;
+		this.nbCartesShown+= 2;
+                this.nbCoup++;
                 //regarde si identique si oui 1 paire de plus si non attente delai erreur
                 if (carteTourne.rectoIdentique(premiereCarte)) {
 		    //bravo une paire reussie
                     nombreDePaires++;
-                    if (nombreDePaires == Math.floor(cartes.length / 2)) {
+                    if (nombreDePaires >= Math.floor(cartes.length / 2)) {
 			//si on a le nombre de paire
                         System.out.println("Bravo vous avez toutes les paires! ");
                         System.out.println("Vous avez gagne en "+nbCoup+" coups.");
