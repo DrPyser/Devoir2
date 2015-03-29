@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * 
  */
 
-public class PanneauDeCartes extends JPanel{
+public class PanneauDeCartes extends JPanel {
 
     private final int delaiInitial, delaiMauvaisePaire;//contient le temps d'attende
     private GridLayout carteLayout;//contient le grid
@@ -26,6 +26,7 @@ public class PanneauDeCartes extends JPanel{
         this.cartes = cartes;//cartes du panneau
         this.carteLayout = new GridLayout( nRangees, nColonnes,10,10);
         this.setLayout(carteLayout);
+	
         this.delaiInitial = delaiAffichageDebut;//délai pour l'affichage initial des cartes
         this.delaiMauvaisePaire = delaiAffichageErreur;//délai lors d'une erreur de la part du joueur
 
@@ -49,30 +50,33 @@ public class PanneauDeCartes extends JPanel{
         //observe quelle carte est tournée
         if (!premiereTournee){//premiere carte tourné
             if (carteTourne.estCachee()) {
-		//si la carte n'est pas tourné on la tourne
+		//si la carte n'est pas déjà tourné
                 this.premiereTournee = true;
                 carteTourne.montre();
+		this.nbCartesShown++;
                 this.premiereCarte = (Carte) carteTourne;
                 this.nbCoup ++;
             } else {
                 System.out.println("Carte déjà retournée.");
             }
 
-        } else if (!deuxiemeTournee){//deuxieme carte tournée
+        } else if (!deuxiemeTournee){
+	    //deuxieme carte tournée
             if(carteTourne.estCachee()) {
+		//si carte pas déjà tournée
                 this.deuxiemeTournee = true;
                 carteTourne.montre();
-		this.nbCartesShown+= 2;
+		this.nbCartesShown++;
                 this.nbCoup++;
                 //regarde si identique si oui 1 paire de plus si non attente delai erreur
                 if (carteTourne.rectoIdentique(premiereCarte)) {
 		    //bravo une paire reussie
                     nombreDePaires++;
-                    if (nombreDePaires >= Math.floor(cartes.length / 2)) {
+                    if (this.nbCartesShown == cartes.length) {
 			//si on a le nombre de paire
                         System.out.println("Bravo vous avez toutes les paires! ");
                         System.out.println("Vous avez gagne en "+nbCoup+" coups.");
-			//demande pour une nouvelle partie
+			
                     }
 
                 } else {
@@ -84,15 +88,19 @@ public class PanneauDeCartes extends JPanel{
 			    public void actionPerformed(ActionEvent e) {
 				premiereCarte.cache();//retourne la première carte
 				carteTourne.cache();//retourne la deuxième carte
+				nbCartesShown-=2;
 			    }
 			});
 		    timer.setInitialDelay(delaiMauvaisePaire);//le délais initial est celui déterminé par la variable "delaiMauvaisePaire"
 		    timer.setRepeats(false);//pas de répétition
 		    timer.start();
 
-                }
+                } 
+		
 
-            }
+            } else {
+		System.out.println("Carte déjà retournée.");
+	    }
 
 	    //on réinitialise le "cycle"
 	    this.premiereTournee = false;
@@ -121,37 +129,5 @@ public class PanneauDeCartes extends JPanel{
 	timer.setRepeats(false);//pas de répétition
 	timer.start();
     }
-
-    
-    /* le code ci-dessous n'est pas utilisé
-    //délais après un erreur
-    public void delaiAffichageMauvaisePaire(int delai){
-
-        Timer timer = new Timer(delai,new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-	timer.setInitialDelay(delai);
-	timer.setRepeats(false);
-	timer.start();
-    }
-    
-    public static void sleep(int secondes){
-
-        long temps = secondes*1000;
-
-        try {
-
-            Thread.sleep(temps);
-
-        } catch(InterruptedException e){
-
-            System.out.println("Sleep interrompu");
-
-        }
-
-    }
-    */
 
 }

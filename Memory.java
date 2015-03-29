@@ -26,7 +26,7 @@ public class Memory {
             System.out.println("Ex: java Memory 5 6 5 1 3");
             System.out.println("Choisir parmis la liste de themes disponible: \n" +
                     " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
-                    " 3: Notion Informatique \n 4: Image Lettres Grecs \n 5: " +
+                    " 3: Notion Informatique \n 4: Image Lettres Grecs \n 5: Images Bandes Dessinées" +
                     "6: Melange des themes 0 à 5 ");
 
             System.exit(42);
@@ -46,8 +46,8 @@ public class Memory {
 
             System.out.println("Theme non valide. Choisir parmis la liste de themes disponible: " +
                     " 0: Cartes couleurs \n 1: Langage Informatique \n 2: Systeme Solaire \n" +
-                            " 3: Notion Informatique  \n 4:  \n 6: Image Lettres Grecs \n  " +
-                            "8: Melange des themes 0 à 7) ");
+                            " 3: Notion Informatique  \n 4: Images Lettres Grecques  \n 5: Images Bandes Dessinées \n " +
+                            "6: Melange des themes 0 à 5) ");
 
 
             themes = scan.nextInt();
@@ -84,6 +84,7 @@ public class Memory {
 		      //on utilise un scanner pour lire le fichier au complet, puis on split le string résultant aux delimiteurs appropriés
 		      Scanner file = new Scanner(new File("languages.txt"));
 		      String[] words = file.nextLine().split(",");//ici, on sépare les mots aux virgules
+		      file.close();
 		      GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
 		      cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
 		      
@@ -102,6 +103,7 @@ public class Memory {
 		    try {
 			Scanner file = new Scanner(new File("systèmesolaire.txt"));
 			String[] words = file.nextLine().split(",");
+			file.close();
 			GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
 			cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
 		    
@@ -122,6 +124,7 @@ public class Memory {
 		    Scanner file = new Scanner(new File("concepts.txt"));
 		    String[] words = file.nextLine().split(",");
 		    System.out.println("Il y a "+words.length+" cartes différentes dans ce thème");
+		    file.close();
 		    GenerateurDeCartesMot genereNotions = new GenerateurDeCartesMot(nomTheme,words);
 		    System.out.println(genereNotions.nombreDeCartesDifferentes());
 		    cartes = genereNotions.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));//cree les cartes
@@ -174,6 +177,50 @@ public class Memory {
                 break;
 
 	    case 6:
+		nomTheme = "Informatique...";
+
+		try {
+		    //on construit d'abord le générateur pour les images Bande dessinées
+		    Scanner file = new Scanner(new File("ImageBD.txt")).useDelimiter("\\A");//considère tout le fichier comme un "token"
+		    String[] paths = file.next().split("\n");//prend tout le texte du fichier, et sépare chaque lignes
+		    file.close();
+		    GenerateurDeCartesImage genereImageBD = new GenerateurDeCartesImage(nomTheme,paths);
+		    
+		    //on construit ensuite le générateur pour les images de lettres grecques
+		    file = new Scanner(new File("cheminsimagesgrec.txt")).useDelimiter("\\A");//considère tout le fichier comme un "token"
+		    paths = file.next().split("\n");//prend tout le texte du fichier, et sépare chaque lignes
+		    file.close();
+		    GenerateurDeCartesImage genereImageGK = new GenerateurDeCartesImage(nomTheme,paths);
+		    
+		    //on construit ensuite le générateur pour les languages informatiques
+		    file = new Scanner(new File("languages.txt"));
+		    String[] words = file.nextLine().split(",");//ici, on sépare les mots aux virgules
+		    GenerateurDeCartesMot genereNotionsLG = new GenerateurDeCartesMot(nomTheme,words);
+		    file.close();
+		    
+		    //... le générateur pour les astres du système solaire
+		    file = new Scanner(new File("systèmesolaire.txt"));
+		    words = file.nextLine().split(",");
+		    file.close();
+		    GenerateurDeCartesMot genereNotionsSS = new GenerateurDeCartesMot(nomTheme,words);
+
+		    // le générateur pour les concepts d'info
+		    file = new Scanner(new File("concepts.txt"));
+		    words = file.nextLine().split(",");
+		    System.out.println("Il y a "+words.length+" cartes différentes dans ce thème");
+		    file.close();
+		    GenerateurDeCartesMot genereNotionsCI = new GenerateurDeCartesMot(nomTheme,words);
+		    
+		    //array contenant les générateurs
+		    GenerateurDeCartes[] generateurs = {genereImageBD,genereImageGK,genereNotionsLG,genereNotionsCI,genereNotionsSS};
+		    GenerateurDeCartesMultiple genereCartesMultiple = new GenerateurDeCartesMultiple(nomTheme,generateurs);
+		    cartes = genereCartesMultiple.generePairesDeCartesMelangees((int) Math.floor(nbColonnes * nbRangees/2));
+                } catch (FileNotFoundException exc) {
+                    System.out.println("You don't have the image theme files in the right place, or it is inexistant.");
+                    System.exit(3);
+                }
+
+                break;
 		
 		
             default:
@@ -187,6 +234,7 @@ public class Memory {
 
 	//création de la fenêtre                                               
         JFrame window = new JFrame("Memory Game");//title of the window
+	window.setTitle(new JTextField("Memory par Alexandra Potvin et Charles Langlois").getText());
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//what it does when we push x
 
         window.setSize(850, 500);//size in pixel par defaut
@@ -202,26 +250,7 @@ public class Memory {
 	//le constructeur du panneau initialise les cartes au coté recto, et ensuite les retourne après un délai
 
 	//à partir de ce point, les intéractions par click de souris et le fonctionnement du Panneau déterminent le reste de la partie
-	while(panel.getNbCartesShown() < cartes.length){
-	}
-	nouvellePartie(nbRangees,nbColonnes,delaiInitial,delaiErreur,theme);
-    }
 
-    public static void nouvellePartie(int nbrangés,int nbcolonnes,int delaiInitial,int delaiErreur,int theme){
-	System.out.println("Voulez-vous faire une nouvelle partie? [oui/o|non/n]");
-	Scanner scan = new Scanner(System.in);
-	String answer = scan.next();
-	while(answer != "oui" || answer != "o" || answer != "non" || answer != "n"){
-	    System.out.println("Vous n'avez pas entré une réponse valide. Veuillez réessayer.");
-	    answer = scan.next();
-	}
-	if (answer.equalsIgnoreCase("oui") || answer.equalsIgnoreCase("o")){
-	    generateGame(nbrangés,nbcolonnes,delaiInitial,delaiErreur,theme);
-	} else {
-	    System.out.println("Au revoir, Dave.");
-	    System.exit(3);
-	}
-	
     }
 
 }
