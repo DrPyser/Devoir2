@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="669049f5-9539-47ec-94b2-17f568de4d0d" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\Carte.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\CarteCouleur.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\CarteImage.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\CarteMot.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\ClickListener.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\GenerateurDeCartes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\GenerateurDeCartesCouleur.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\GenerateurDeCartesImage.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\GenerateurDeCartesMot.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\GenerateurDeCartesMultiple.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\Memory.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alexandra\workspace\Memory\PanneauDeCartes.java" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Alpha.jpg" afterPath="$PROJECT_DIR$/Images/alpha.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Beta.jpg" afterPath="$PROJECT_DIR$/Images/beta.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Chi.jpg" afterPath="$PROJECT_DIR$/Images/chi.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Delta.jpg" afterPath="$PROJECT_DIR$/Images/delta.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Epsilon.jpg" afterPath="$PROJECT_DIR$/Images/epsilon.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Eta.jpg" afterPath="$PROJECT_DIR$/Images/eta.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Gamma.jpg" afterPath="$PROJECT_DIR$/Images/gamma.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Iota.jpg" afterPath="$PROJECT_DIR$/Images/iota.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Kappa.jpg" afterPath="$PROJECT_DIR$/Images/kappa.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Lambda.jpg" afterPath="$PROJECT_DIR$/Images/lambda.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Mu.jpg" afterPath="$PROJECT_DIR$/Images/mu.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Nu.jpg" afterPath="$PROJECT_DIR$/Images/nu.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Omicron.jpg" afterPath="$PROJECT_DIR$/Images/omicron.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Phi.jpg" afterPath="$PROJECT_DIR$/Images/phi.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Pi.jpg" afterPath="$PROJECT_DIR$/Images/pi.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Psi.jpg" afterPath="$PROJECT_DIR$/Images/psi.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Rho.jpg" afterPath="$PROJECT_DIR$/Images/rho.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Sigma.jpg" afterPath="$PROJECT_DIR$/Images/sigma.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Tau.jpg" afterPath="$PROJECT_DIR$/Images/tau.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Theta.jpg" afterPath="$PROJECT_DIR$/Images/theta.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Upsilon.jpg" afterPath="$PROJECT_DIR$/Images/upsilon.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Xi.jpg" afterPath="$PROJECT_DIR$/Images/xi.jpg" />
-      <change type="MOVED" beforePath="C:\Users\Alexandra\workspace\Memory\Images\Zeta.jpg" afterPath="$PROJECT_DIR$/Images/zeta.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Devoir2.iml" afterPath="$PROJECT_DIR$/.idea/Devoir2.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="669049f5-9539-47ec-94b2-17f568de4d0d" name="Default" comment="Revamped whole project structure to comply with intelij standard">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Alpha.jpg" afterPath="$PROJECT_DIR$/Images/Alpha.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Beta.jpg" afterPath="$PROJECT_DIR$/Images/Beta.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Chi.jpg" afterPath="$PROJECT_DIR$/Images/Chi.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Delta.jpg" afterPath="$PROJECT_DIR$/Images/Delta.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Epsilon.jpg" afterPath="$PROJECT_DIR$/Images/Epsilon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Eta.jpg" afterPath="$PROJECT_DIR$/Images/Eta.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Gamma.jpg" afterPath="$PROJECT_DIR$/Images/Gamma.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Iota.jpg" afterPath="$PROJECT_DIR$/Images/Iota.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Kappa.jpg" afterPath="$PROJECT_DIR$/Images/Kappa.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Lambda.jpg" afterPath="$PROJECT_DIR$/Images/Lambda.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Mu.jpg" afterPath="$PROJECT_DIR$/Images/Mu.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Nu.jpg" afterPath="$PROJECT_DIR$/Images/Nu.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Omicron.jpg" afterPath="$PROJECT_DIR$/Images/Omicron.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Phi.jpg" afterPath="$PROJECT_DIR$/Images/Phi.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Pi.jpg" afterPath="$PROJECT_DIR$/Images/Pi.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Psi.jpg" afterPath="$PROJECT_DIR$/Images/Psi.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Rho.jpg" afterPath="$PROJECT_DIR$/Images/Rho.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Sigma.jpg" afterPath="$PROJECT_DIR$/Images/Sigma.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Tau.jpg" afterPath="$PROJECT_DIR$/Images/Tau.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Theta.jpg" afterPath="$PROJECT_DIR$/Images/Theta.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Upsilon.jpg" afterPath="$PROJECT_DIR$/Images/Upsilon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Xi.jpg" afterPath="$PROJECT_DIR$/Images/Xi.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Images/Zeta.jpg" afterPath="$PROJECT_DIR$/Images/Zeta.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Devoir2.iws" />
@@ -66,20 +51,20 @@
       <file leaf-file-name="Carte.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Carte.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.029876977" vertical-offset="0" max-vertical-offset="1343">
+            <state vertical-scroll-proportion="0.03057554" vertical-offset="0" max-vertical-offset="1309">
               <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#205#206#0" expanded="true" />
-                <element signature="e#232#233#0" expanded="true" />
-                <element signature="e#267#268#0" expanded="true" />
-                <element signature="e#293#294#0" expanded="true" />
-                <element signature="e#327#328#0" expanded="true" />
-                <element signature="e#348#349#0" expanded="true" />
-                <element signature="e#381#382#0" expanded="true" />
-                <element signature="e#403#404#0" expanded="true" />
-                <element signature="e#616#617#0" expanded="true" />
-                <element signature="e#649#650#0" expanded="true" />
+                <element signature="e#206#207#0" expanded="true" />
+                <element signature="e#240#241#0" expanded="true" />
+                <element signature="e#276#277#0" expanded="true" />
+                <element signature="e#309#310#0" expanded="true" />
+                <element signature="e#679#680#0" expanded="true" />
+                <element signature="e#707#708#0" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#770#771#0" expanded="true" />
+                <element signature="e#1006#1007#0" expanded="true" />
+                <element signature="e#1046#1047#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,6 +78,11 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Adwind" />
+      </list>
+    </option>
     <option name="SYNC_SETTING" value="DONT" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="AUTO_COMMIT_ON_CHERRY_PICK" value="true" />
@@ -337,6 +327,15 @@
       <created>1426791495874</created>
       <updated>1426791495874</updated>
     </task>
+    <task id="LOCAL-00001" summary="Revamped whole project structure to comply with intelij standard">
+      <created>1427814523490</created>
+      <updated>1427814523490</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Revamped whole project structure to comply with intelij standard">
+      <created>1427814642234</created>
+      <updated>1427814642234</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -407,6 +406,11 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Revamped whole project structure to comply with intelij standard" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revamped whole project structure to comply with intelij standard" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -418,20 +422,20 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Carte.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.029876977" vertical-offset="0" max-vertical-offset="1343">
+        <state vertical-scroll-proportion="0.03057554" vertical-offset="0" max-vertical-offset="1309">
           <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#205#206#0" expanded="true" />
-            <element signature="e#232#233#0" expanded="true" />
-            <element signature="e#267#268#0" expanded="true" />
-            <element signature="e#293#294#0" expanded="true" />
-            <element signature="e#327#328#0" expanded="true" />
-            <element signature="e#348#349#0" expanded="true" />
-            <element signature="e#381#382#0" expanded="true" />
-            <element signature="e#403#404#0" expanded="true" />
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#206#207#0" expanded="true" />
+            <element signature="e#240#241#0" expanded="true" />
+            <element signature="e#276#277#0" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#679#680#0" expanded="true" />
+            <element signature="e#707#708#0" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#770#771#0" expanded="true" />
+            <element signature="e#1006#1007#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
           </folding>
         </state>
       </provider>
